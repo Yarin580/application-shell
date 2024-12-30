@@ -1,50 +1,124 @@
-# React + TypeScript + Vite
+# React Shell Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **Features**
 
-Currently, two official plugins are available:
+- **Master-Detail Layout**: Each page includes a data grid, search bar, and a bottom details panel for presenting extended data.
+- **Two Pages**:
+  - **Employees Page**: Displays employee data.
+  - **Products Page**: Displays product data.
+- **Mock Data**: The application uses mocked datasets, simulating a backend API.
+- **Performance Optimized**: Capable of handling \~10k rows of data with 10-15 columns per grid.
+- **Reusable Components**: Modular structure with reusable layouts and data grid components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## **Tech Stack**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: React 18 with TypeScript
+- **Component Library**: Material-UI 5.x.x
+- **Data Grid**: MUI X Data Grid Premium 7.x.x
+- **Bundler**: Vite
+- **State Management**: Context API
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## **File Structure**
+
+### **Root**
+
+- `index.html`: Entry point of the application.
+- `main.tsx`: Application bootstrapper.
+- `App.tsx`: Application root component.
+
+### **Src**
+
+- **`api/`**:
+
+  - `employee.ts`: Mock API for employee-related data.
+  - `product.ts`: Mock API for product-related data.
+
+- **`components/`**:
+
+  - `core/CustomDataGrid.tsx`: A Custom data grid components, include search bar.
+
+- **`layout/`**:
+
+  - `TopNavBar.tsx`: App top navbar.
+  - `SideBar.tsx`: Sidebar for app navigation.
+  - `MainContent.tsx`: Wrapper for page content.
+  - `DetailesPanel.tsx`: Bottom panel displaying extended details of selected data rows.
+
+- **`context/`**:
+
+  - `appContext.tsx`: Context API implementation for global state management.
+
+- **`hooks/`**:
+
+  - `useDataGrid.tsx`: Custom hook for managing data grid logic and state.
+
+- **`pages/`**:
+
+  - `EmployeesPage.tsx`: Page displaying the employee data grid.
+  - `ProductsPage.tsx`: Page displaying the product data grid.
+
+- **`types/`**:
+
+  - `models.ts`: TypeScript models for defining the structure of the datasets.
+
+- **`utils/`**:
+
+  - `mockData.ts`: Utility functions or static data to generate mock datasets.
+
+- **`App.css`**: Global styles for the app.
+
+- **`index.css`**: Base styles for the app.
+
+---
+
+## **Getting Started**
+
+### **1. Installation**
+
+Clone the repository and install dependencies:
+
+```bash
+git clone <repo-url>
+cd <project-folder>
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### **2. Run Development Server**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Start the Vite development server:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+The application will be available at [http://localhost:5173](http://localhost:5173).
+
+### **3. Build for Production**
+
+Generate a production build:
+
+```bash
+npm run build
+```
+
+### **4. Linting**
+
+Run ESLint for code quality checks:
+
+```bash
+npm run lint
+```
+
+---
+
+## **Usage**
+
+1. Navigate between pages using the **Sidebar**.
+2. Use the **Search Box** to filter data in the grid.
+3. Select a row to view extended details in the **Details Panel**.
+
+---
