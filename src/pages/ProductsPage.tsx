@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid-premium";
-import { CustomDataGrid } from "../components/core/CustomDataGrid";
+import { CustomDataGrid } from "../components/CustomDataGrid/CustomDataGrid";
 import { DetailPanel } from "../components/layout/DetailesPanel";
 import { getAllProducts } from "../api/product";
 import { Product } from "../types/models";
