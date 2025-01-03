@@ -1,26 +1,26 @@
 import { generateMockEmployees } from "../utils/mockData";
+import { getAll } from "./baseFunctions";
 
 const MOCK_EMPLOYEES = generateMockEmployees(10000);
 
 export const getAllEmployees = async (
   page: number,
   pageSize: number,
-  searchQuery: string
+  searchQuery: string,
+  sortField: any,
+  sortDirection: any
 ) => {
-  const start = page * pageSize;
-  const end = start + pageSize;
-
-  // Simulate server-side delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const filteredRows = MOCK_EMPLOYEES.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  const searchableFields: (keyof (typeof MOCK_EMPLOYEES)[0])[] = [
+    "fullName",
+    "nickname",
+  ];
+  return getAll(
+    MOCK_EMPLOYEES,
+    page,
+    pageSize,
+    searchQuery,
+    searchableFields,
+    sortField,
+    sortDirection
   );
-
-  const rows = filteredRows.slice(start, end);
-  const total = filteredRows.length;
-
-  return { rows, total };
 };

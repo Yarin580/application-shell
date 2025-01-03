@@ -1,25 +1,26 @@
 import { generateMockProducts } from "../utils/mockData";
+import { getAll } from "./baseFunctions";
 
 const MOCK_PRODUCTS = generateMockProducts(1000);
 
 export const getAllProducts = async (
   page: number,
   pageSize: number,
-  searchQuery: string
+  searchQuery: string,
+  sortField: any,
+  sortDirection: any
 ) => {
-  const start = page * pageSize;
-  const end = start + pageSize;
-
-  // Simulate server-side delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const filteredRows = MOCK_PRODUCTS.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  const searchableFields: (keyof (typeof MOCK_PRODUCTS)[0])[] = [
+    "name",
+    "category",
+  ];
+  return getAll(
+    MOCK_PRODUCTS,
+    page,
+    pageSize,
+    searchQuery,
+    searchableFields,
+    sortField,
+    sortDirection
   );
-
-  const rows = filteredRows.slice(start, end);
-  const total = filteredRows.length;
-  return { rows, total };
 };
