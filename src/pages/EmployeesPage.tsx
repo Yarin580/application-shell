@@ -13,8 +13,12 @@ const columns: GridColDef[] = [
   { field: "email", headerName: "Email", width: 200 },
   { field: "phone", headerName: "Phone", width: 200 },
   { field: "address", headerName: "Address", width: 300 },
-
-  // Add more columns as needed
+  { field: "position", headerName: "Position", width: 300 },
+  { field: "country", headerName: "Country", width: 300 },
+  { field: "department", headerName: "Department", width: 300 },
+  { field: "skills", headerName: "Skills", width: 300 },
+  { field: "educationLevel", headerName: "Education Level", width: 300 },
+  { field: "teamName", headerName: "Team Name", width: 300 },
 ];
 
 export const EmployeesPage = () => {
