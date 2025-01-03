@@ -17,6 +17,7 @@ export const useDataGrid = <T,>(fetchData: FetchDataFunctionParams<T>) => {
   const [pageSize, setPageSize] = useState(50);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Fetch data using react-query
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["dataGrid", page, pageSize, searchQuery],
     queryFn: () => fetchData(page, pageSize, searchQuery),
@@ -26,7 +27,7 @@ export const useDataGrid = <T,>(fetchData: FetchDataFunctionParams<T>) => {
   return {
     rows: data?.rows || [],
     total: data?.total || 0,
-    isLoading: isFetching,
+    isLoading: isFetching || isLoading,
     isError,
     page,
     pageSize,
