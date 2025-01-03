@@ -19,6 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const drawerWidth = 240;
 
+  // Function to check if the current path is active for selected item in the sidebar
   const isActive = (path: string) => location.pathname === path;
 
   const handleNavigation = (path: string) => {

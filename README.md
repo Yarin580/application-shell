@@ -18,7 +18,6 @@
 - **Component Library**: Material-UI 5.x.x
 - **Data Grid**: MUI X Data Grid Premium 7.x.x
 - **Bundler**: Vite
-- **State Management**: Context API
 
 ---
 
@@ -47,10 +46,6 @@
   - `SideBar.tsx`: Sidebar for app navigation.
   - `MainContent.tsx`: Wrapper for page content.
   - `DetailesPanel.tsx`: Bottom panel displaying extended details of selected data rows.
-
-- **`context/`**:
-
-  - `appContext.tsx`: Context API implementation for global state management.
 
 - **`hooks/`**:
 

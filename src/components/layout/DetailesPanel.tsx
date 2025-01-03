@@ -27,7 +27,7 @@ export const DetailPanel = ({ selectedItem }: DetailPanelProps) => {
         </Box>
       ) : (
         <motion.div
-          key={selectedItem ? selectedItem.id : "empty"} // Use a unique identifier
+          key={selectedItem ? selectedItem.id : "empty"}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 2, y: 0 }}
           transition={{ duration: 1 }}

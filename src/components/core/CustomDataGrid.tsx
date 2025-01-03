@@ -3,7 +3,7 @@ import {
   GridColDef,
   GridValidRowModel,
 } from "@mui/x-data-grid-premium";
-import { Paper, TextField, InputAdornment } from "@mui/material";
+import { Paper, TextField, InputAdornment, Box } from "@mui/material";
 import { ChangeEvent } from "react";
 import { FetchDataFunctionParams, useDataGrid } from "../../hooks/useDataGrid";
 import SearchIcon from "@mui/icons-material/Search";
@@ -19,6 +19,7 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
   columns,
   onRowClick,
 }: CustomDataGridProps<T>) => {
+  // Data grid state
   const {
     rows,
     total,
@@ -31,9 +32,15 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
     setSearchQuery,
   } = useDataGrid(fetchData);
 
+  // Handlers
+
+  // Handler for search input change
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+    setPage(0);
   };
+
+  // Handler for pagination change
   const handlePaginationChange = (paginationModel: {
     page: number;
     pageSize: number;
@@ -43,16 +50,22 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
   };
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "end" }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <TextField
           variant="outlined"
           placeholder="Search..."
           value={searchQuery}
           onChange={handleSearchChange}
           sx={{
-            mb: 1,
+            width: 240,
             "& .MuiOutlinedInput-root": {
-              borderRadius: "20px", // Makes it rounded
+              borderRadius: "12px",
+              "& fieldset": {
+                borderColor: "divider",
+              },
+              "&:hover fieldset": {
+                borderColor: "primary.main",
+              },
             },
           }}
           InputProps={{
@@ -63,13 +76,15 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
             ),
           }}
         />
-      </div>
-
+      </Box>
       <Paper
         sx={{
           height: "50vh",
           width: "100%",
+          overflow: "scroll",
+          borderRadius: 3,
         }}
+        elevation={0}
       >
         <DataGridPremium
           rows={rows}
@@ -86,7 +101,16 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
           sx={{
             "& .MuiDataGrid-cell": {
               whiteSpace: "normal",
-              padding: "12px",
+              padding: "16px",
+              borderColor: "divider",
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              borderBottom: 1,
+              borderColor: "divider",
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: 1,
+              borderColor: "divider",
             },
           }}
         />

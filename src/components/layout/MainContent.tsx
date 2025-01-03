@@ -29,7 +29,6 @@ export const MainContent = ({ children }: MainLayoutProps) => {
         transition={{ duration: 1 }}
         style={{
           flexGrow: 1,
-
           paddingLeft: theme.spacing(isMobile ? 3 : 4),
           paddingRight: theme.spacing(isMobile ? 3 : 4),
         }}
