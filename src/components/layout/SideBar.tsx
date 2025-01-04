@@ -5,6 +5,8 @@ import {
   ListItemIcon,
   ListItemText,
   ListItemButton,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { People, Inventory } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -19,6 +21,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const drawerWidth = 240;
 
+  // Check screen size
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   // Function to check if the current path is active for selected item in the sidebar
   const isActive = (path: string) => location.pathname === path;
 
@@ -27,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   };
   return (
     <Drawer
-      variant="persistent"
+      variant={isMobile ? "temporary" : "persistent"}
       open={isOpen}
       onClose={onClose}
       ModalProps={{
@@ -39,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
-          marginTop: "64px",
+          marginTop: "56px",
         },
       }}
     >

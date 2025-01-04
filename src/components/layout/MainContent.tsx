@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Box, CssBaseline, useMediaQuery, useTheme } from "@mui/material";
 import TopNavBar from "./TopNavBar";
 import Sidebar from "./SideBar";
@@ -12,7 +12,14 @@ interface MainLayoutProps {
 export const MainContent = ({ children }: MainLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  // Close sidebar automatically when switching to mobile view
+  useEffect(() => {
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  }, [isMobile]);
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -40,7 +47,7 @@ export const MainContent = ({ children }: MainLayoutProps) => {
             p: 3,
             marginTop: "64px",
             width: "100%",
-            paddingLeft: isSidebarOpen ? "240px" : "0",
+            paddingLeft: isMobile ? "0" : isSidebarOpen ? "240px" : "0",
           }}
         >
           {children}
