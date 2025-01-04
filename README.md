@@ -26,26 +26,27 @@
 ### **Root**
 
 - `index.html`: Entry point of the application.
-- `main.tsx`: Application bootstrapper.
-- `App.tsx`: Application root component.
+- `jest.config.js`: Jest configuration.
+- `package.json`: Project dependencies and scripts.
 
 ### **Src**
 
 - **`api/`**:
 
-  - `employee.ts`: Mock API for employee-related data.
-  - `product.ts`: Mock API for product-related data.
+  - `baseFunctions.ts`: Base functions for API.
+  - `employee.ts`: Mock API for employee data.
+  - `product.ts`: Mock API for product data.
 
 - **`components/`**:
 
-  - `core/CustomDataGrid.tsx`: A Custom data grid components, include search bar.
-
-- **`layout/`**:
-
-  - `TopNavBar.tsx`: App top navbar.
-  - `SideBar.tsx`: Sidebar for app navigation.
-  - `MainContent.tsx`: Wrapper for page content.
-  - `DetailesPanel.tsx`: Bottom panel displaying extended details of selected data rows.
+  - **`CustomDataGrid/`**:
+    - `CustomDataGrid.tsx`: Custom data grid component (using Data Grid Premuim by MaterialUI).
+    - `DataGridSearch.tsx`: Search bar for data grid.
+  - **`layout/`**:
+    - `DetailesPanel.tsx`: Bottom panel displaying extended details of selected data rows.
+    - `MainContent.tsx`: Wrapper for page content.
+    - `SideBar.tsx`: Sidebar for app navigation.
+    - `TopNavBar.tsx`: App top navbar.
 
 - **`hooks/`**:
 
@@ -58,54 +59,42 @@
 
 - **`types/`**:
 
+  - `dataGridModels.ts`: TypeScript models for data grid.
   - `models.ts`: TypeScript models for defining the structure of the datasets.
 
 - **`utils/`**:
 
-  - `mockData.ts`: Utility functions or static data to generate mock datasets.
+  - `dataUtils.ts`: Utility functions for data operations.
+  - **`mockData/`**:
+    - `mockEmployees.ts`: Utility functions to generate mock employee data.
+    - `mockProducts.ts`: Utility functions to generate mock product data.
 
-- **`App.css`**: Global styles for the app.
-
-- **`index.css`**: Base styles for the app.
+- `App.tsx`: Application root component.
+- `index.css`: Base styles for the app.
+- `main.tsx`: Application bootstrapper.
 
 ---
 
-## **Getting Started**
+## Running the App
 
-### **1. Installation**
-
-Clone the repository and install dependencies:
+To start the development server, run:
 
 ```bash
-git clone <repo-url>
-cd <project-folder>
+# Install dependencies
 npm install
-```
 
-### **2. Run Development Server**
-
-Start the Vite development server:
-
-```bash
+# Run development server
 npm run dev
 ```
 
-The application will be available at [http://localhost:5173](http://localhost:5173).
+The app will be available at `http://localhost:5173`.
 
-### **3. Build for Production**
+## Testing
 
-Generate a production build:
-
-```bash
-npm run build
-```
-
-### **4. Linting**
-
-Run ESLint for code quality checks:
+Run unit tests with:
 
 ```bash
-npm run lint
+npm test
 ```
 
 ---

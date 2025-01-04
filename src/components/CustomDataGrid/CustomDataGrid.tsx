@@ -25,16 +25,25 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
     setPage,
     setPageSize,
     setSearchQuery,
-    setSortField,
-    setSortDirection,
+    setFilterModel,
+    setSortModel,
   } = useDataGrid(fetchData);
 
-  const handleSortChange = (field: string, direction: string) => {
-    setSortField(field);
-    setSortDirection(direction);
+  // Handle sort change
+  const handleSortChange = (sortModel: any) => {
+    if (sortModel.length > 0) {
+      setSortModel(sortModel[0]);
+    }
     setPage(0);
   };
 
+  // Handle filter change
+  const handleFilterChange = (filterModel: any) => {
+    setFilterModel(filterModel);
+    setPage(0);
+  };
+
+  // Handle pagination change
   const handlePaginationChange = (paginationModel: {
     page: number;
     pageSize: number;
@@ -64,21 +73,18 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
         elevation={1}
       >
         <DataGridPremium
+          disableAggregation
+          disableRowGrouping
           rows={rows}
           columns={columns}
           onRowClick={(params) => onRowClick(params.row)}
           pagination
           paginationMode="server"
-          disableRowGrouping
-          disableAggregation
-          rowCount={total}
           sortingMode="server"
-          onSortModelChange={(model) => {
-            if (model.length > 0) {
-              const { field, sort } = model[0];
-              handleSortChange(field, sort as string);
-            }
-          }}
+          filterMode="server" // Enable server-side filtering
+          rowCount={total}
+          onSortModelChange={handleSortChange}
+          onFilterModelChange={handleFilterChange}
           paginationModel={{ page, pageSize }}
           onPaginationModelChange={handlePaginationChange}
           loading={isLoading}
@@ -88,20 +94,20 @@ export const CustomDataGrid = <T extends GridValidRowModel>({
             "& .MuiDataGrid-cell": {
               whiteSpace: "normal",
               padding: "16px",
-              borderColor: "#d6e4f7", // Light border for cells
-              color: "#003366", // Dark blue text for readability
+              borderColor: "#d6e4f7",
+              color: "#003366",
             },
             "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#e3f2fd", // Light blue column header
-              color: "#003366", // Dark blue text
+              backgroundColor: "#e3f2fd",
+              color: "#003366",
               borderBottom: "1px solid #d6e4f7",
             },
             "& .MuiDataGrid-footerContainer": {
               borderTop: "1px solid #d6e4f7",
-              backgroundColor: "#e3f2fd", // Light blue footer background
+              backgroundColor: "#e3f2fd",
             },
             "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#cfe8fc", // Slightly darker blue on hover
+              backgroundColor: "#cfe8fc",
             },
             "& .MuiDataGrid-selectedRowCount": {
               color: "#003366",

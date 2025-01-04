@@ -1,11 +1,14 @@
+import { FilterModel, SortModel } from "../types/dataGridModels";
+import { applyFilters, filterData, sortData } from "../utils/dataUtils";
+
 export const getAll = async <T>(
   data: T[],
   page: number,
   pageSize: number,
   searchQuery: string,
   searchableFields: (keyof T)[],
-  sortField: any,
-  sortDirection: any
+  sortModel: SortModel<T>,
+  filterModel: FilterModel<T>
 ) => {
   const start = page * pageSize;
   const end = start + pageSize;
@@ -14,8 +17,13 @@ export const getAll = async <T>(
   await simulateDelay(500);
 
   let filteredData = filterData(data, searchQuery, searchableFields);
-  if (sortField) {
-    filteredData = sortData(filteredData, sortField, sortDirection);
+
+  // Apply filter model
+  filteredData = applyFilters(filteredData, filterModel);
+
+  if (sortModel.field) {
+    // Sort data
+    filteredData = sortData(filteredData, sortModel.field, sortModel.sort);
   }
 
   const rows = filteredData.slice(start, end);
@@ -24,39 +32,6 @@ export const getAll = async <T>(
   return { rows, total };
 };
 
-// Helper to simulate delay
-const simulateDelay = (ms: number) =>
+// Simulate server-side delay
+const simulateDelay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
-
-// Generic helper to filter data
-const filterData = <T>(
-  data: T[],
-  searchQuery: string,
-  searchableFields: (keyof T)[]
-): T[] => {
-  if (!searchQuery.trim()) return data;
-
-  const lowerCaseQuery = searchQuery.toLowerCase();
-
-  return data.filter((item) =>
-    searchableFields.some((field) =>
-      item[field]?.toString().toLowerCase().includes(lowerCaseQuery)
-    )
-  );
-};
-
-// Generic helper to sort data
-const sortData = <T>(
-  data: T[],
-  sortField: keyof T,
-  sortDirection: "asc" | "desc"
-): T[] => {
-  return [...data].sort((a, b) => {
-    const aValue = a[sortField] ?? "";
-    const bValue = b[sortField] ?? "";
-
-    if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
-    if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
-    return 0;
-  });
-};

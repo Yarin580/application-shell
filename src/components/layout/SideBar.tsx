@@ -36,12 +36,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       variant={isMobile ? "temporary" : "persistent"}
       open={isOpen}
       onClose={onClose}
-      ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
-      }}
       sx={{
         width: drawerWidth,
-        flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
