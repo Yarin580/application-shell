@@ -22,7 +22,7 @@ describe("applyFilters", () => {
 
     const filteredData = applyFilters(mockData, filterModel);
 
-    expect(filteredData.length).toBe(2); // John Doe and Jack Daniels
+    expect(filteredData.length).toBe(2);
     expect(filteredData).toEqual([
       { fullName: "Yogev Hersh", nickname: "Yogi", age: 25 },
       { fullName: "Yossi Yoss", nickname: "Yossi", age: 35 },
@@ -36,7 +36,7 @@ describe("applyFilters", () => {
 
     const filteredData = applyFilters(mockData, filterModel);
 
-    expect(filteredData.length).toBe(1); // Only John Doe
+    expect(filteredData.length).toBe(1);
     expect(filteredData).toEqual([
       { fullName: "Tomer Tom", nickname: "Tom", age: 28 },
     ]);
@@ -49,7 +49,7 @@ describe("applyFilters", () => {
 
     const filteredData = applyFilters(mockData, filterModel);
 
-    expect(filteredData.length).toBe(1); // Jane Smith, Jack Daniels
+    expect(filteredData.length).toBe(1);
     expect(filteredData).toEqual([
       { fullName: "Yarin Hershko", nickname: "Yarin", age: 23 },
     ]);
@@ -62,7 +62,7 @@ describe("applyFilters", () => {
 
     const filteredData = applyFilters(mockData, filterModel);
 
-    expect(filteredData.length).toBe(2); // Jacks and Jess
+    expect(filteredData.length).toBe(2);
     expect(filteredData).toEqual([
       { fullName: "Yogev Hersh", nickname: "Yogi", age: 25 },
       { fullName: "Yossi Yoss", nickname: "Yossi", age: 35 },
@@ -93,12 +93,12 @@ describe("applyFilters", () => {
 
   it("should handle unknown operator gracefully", () => {
     const filterModel: FilterModel<Employee> = {
-      items: [{ field: "fullName", operator: "unknown", value: "John" }],
+      items: [{ field: "fullName", operator: "unknown", value: "Yarin" }],
     };
 
     const filteredData = applyFilters(mockData, filterModel);
 
-    expect(filteredData.length).toBe(mockData.length); // Should return all data as "unknown" operator is handled as default
+    expect(filteredData.length).toBe(mockData.length);
     expect(filteredData).toEqual(mockData);
   });
 });
